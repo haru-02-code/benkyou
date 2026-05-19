@@ -1,0 +1,202 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap");
+
+body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center; /* 複数要素の中央ぞろえ */
+    background-color: #000000;
+    color: #ffffff;
+    font-family: "Inter","DM Sans", Arial, sans-serif;
+}
+
+/* すべての要素とbefore / after 疑似要素に対して同じCSSを適用する */
+*,
+*::before,
+*::after {
+    /* 親要素のフォントを引き継ぐ */
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.content {
+    text-align: center;
+}
+
+.title {
+    /* clamp(最小値, 理想値, 最大値) 画面サイズに応じてフォントが伸縮 8vw = 画面幅の8% */
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 800;
+    letter-spacing: clamp(-1.75px, -0.25vw, -3.5px);
+    position: relative;
+    overflow: hidden;
+    /* background-color は単一のプロパティ
+    background は複数の背景に関連するプロパティを一度に設定できるショートハンドプロパティ */
+    background: #000000;
+    margin: 0;
+}
+
+.aurora {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    mix-blend-mode: darken;/* 上の要素と下の要素を比較して、より暗い部分を表示する */
+    pointer-events: none;
+}
+
+.aurora_item {
+    overflow: hidden;
+    position: absolute;
+    width: 60vw;
+    height: 60vw;
+    background-color: #00c2ff;
+    border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%;
+    filter: blur(1rem);/* ぼかし効果をかけるプロパティ */
+    mix-blend-mode: overlay;/* 要素を重ねた際に、背景色と要素の色を混ぜ合わせ、コントラストを強調する */
+}
+
+/* nth-of-type　こっちは前から順番に選択*/
+/* nth-last-of-type(1)　親要素内で指定したタグの要素を、後ろから数えてn番目の要素を選択 */
+.aurora_item:nth-of-type(1) {
+    top: -50%;
+    /* ease-in-out 緩急をつける　infinite 無限に繰り返す*/
+    animation: aurora-border 6s ease-in-out infinite,
+    aurora-1 12s ease-in-out infinite alternate;
+    /* alternate: 動きの方向で1回目は順方向、2回目は逆方向、3回目は順方向…と交互に動く */
+}
+
+.aurora_item:nth-of-type(2) {
+  background-color: #ffc640;
+  right: 0;
+  top: 0;
+  animation: aurora-border 6s ease-in-out infinite,
+    aurora-2 12s ease-in-out infinite alternate;
+}
+
+.aurora_item:nth-of-type(3) {
+  background-color: #33ff8c;
+  left: 0;
+  bottom: 0;
+  animation: aurora-border 6s ease-in-out infinite,
+    aurora-3 8s ease-in-out infinite alternate;
+}
+
+.aurora_item:nth-of-type(4) {
+  background-color: #e54cff;
+  right: 0;
+  bottom: -50%;
+  animation: aurora-border 6s ease-in-out infinite,
+    aurora-4 24s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-1 {
+  0% {
+    top: 0;
+    right: 0;
+  }
+
+  50% {
+    top: 100%;
+    right: 75%;
+  }
+
+  75% {
+    top: 100%;
+    right: 25%;
+  }
+
+  100% {
+    top: 0;
+    right: 0;
+  }
+}
+
+@keyframes aurora-2 {
+  0% {
+    top: -50%;
+    left: 0%;
+  }
+
+  60% {
+    top: 100%;
+    left: 75%;
+  }
+
+  85% {
+    top: 100%;
+    left: 25%;
+  }
+
+  100% {
+    top: -50%;
+    left: 0%;
+  }
+}
+
+@keyframes aurora-3 {
+  0% {
+    bottom: 0;
+    left: 0;
+  }
+
+  40% {
+    bottom: 100%;
+    left: 75%;
+  }
+
+  65% {
+    bottom: 40%;
+    left: 50%;
+  }
+
+  100% {
+    bottom: 0;
+    left: 0;
+  }
+}
+
+@keyframes aurora-4 {
+  0% {
+    bottom: -50%;
+    right: 0;
+  }
+
+  50% {
+    bottom: 0%;
+    right: 40%;
+  }
+
+  90% {
+    bottom: 50%;
+    right: 25%;
+  }
+
+  100% {
+    bottom: -50%;
+    right: 0;
+  }
+}
+
+@keyframes aurora-border {
+  0% {
+    border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%;
+  }
+
+  25% {
+    border-radius: 47% 29% 39% 49% / 61% 19% 66% 26%;
+  }
+
+  50% {
+    border-radius: 57% 23% 47% 72% / 63% 17% 66% 33%;
+  }
+
+  75% {
+    border-radius: 28% 49% 29% 100% / 93% 20% 64% 25%;
+  }
+
+  100% {
+    border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%;
+  }
+}
